@@ -22,7 +22,7 @@ export default function Shop() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 p-5">
         {products.map((product: any) => (
-          <Link to={`/shop/${product.id}`} className="hover:brightness-95">
+          <Link key={`{$product.id}-link`} to={`/shop/${product.id}`} className="hover:brightness-95">
             <div key={product.id} className="card shadow-xl w-full">
               <figure>
                 <img
