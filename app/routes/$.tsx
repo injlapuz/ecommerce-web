@@ -11,8 +11,10 @@ export function meta() {
 export default function CatchAll() {
     return (
         <div className="flex-1 flex flex-col">
-            <div className="bg-black flex-2 flex flex-col items-center justify-center"></div>
-            <div className="bg-red-50 flex-1">404 - Page Not Found</div>
+            <div className="flex-1 flex items-center justify-center">
+                { /*<p className="font-bold text-2xl"> 404 - Page Not Found</p>*/}
+                <span className="loading loading-spinner text-primary loading-xl"></span>
+            </div>
         </div>
     );
 }
