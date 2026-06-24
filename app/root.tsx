@@ -6,10 +6,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+import { getSession } from "~/sessions.server"
 import type { Route } from "./+types/root";
 import "./app.css";
 import { Navbar } from "./components/navbar";
+import { getCart } from "~/db";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -23,6 +24,27 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+
+
+export interface CartItems {
+  cart_id: number;
+  brand: string;
+  name: string;
+  quantity: number;
+  price: number;
+}
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const user_id = session.get("user_id");
+
+  let cart_items: CartItems[] = [];
+  if (user_id) {
+    cart_items = await getCart(user_id);
+  }
+
+  return { user_id, cart_items };
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
