@@ -1,5 +1,5 @@
-import type { Route } from "./+types/login"
-import { redirect, data } from "react-router";
+import type { Route } from "./+types/signup"
+import { redirect, Form } from "react-router";
 import { addUser } from "~/db";
 
 
@@ -9,17 +9,17 @@ export async function action({ request }: Route.ActionArgs) {
     const email = form.get("email");
     const username = form.get("username");
     const password = form.get("password");
+    const role = form.get("role");
 
-    const user_id = await addUser(email!.toString(), username!.toString(), password!.toString());
+    const user_id = await addUser(email!.toString(), username!.toString(), password!.toString(), role!.toString());
 
     return redirect("/login")
 }
 
 export default function Signup() {
-
     return (
-        <div className="flex justify-center">
-            <form method="POST" className="fieldset bg-netural border-base-300 rounded-box w-xs border p-4">
+        <div className="flex flex-1 justify-center items-center">
+            <Form method="POST" className="fieldset bg-netural border-base-300 rounded-box w-xs border p-4">
                 <fieldset className="fieldset">
                     <label className="label">Email</label>
                     <input name="email" type="email" className="input validator" placeholder="Email" required />
@@ -37,9 +37,10 @@ export default function Signup() {
                     <input name="password" type="password" className="input validator" placeholder="Password" required />
                     <span className="validator-hint hidden">Required</span>
                 </label>
+                <input name="role" type="hidden" value="customer" />
 
                 <button className="btn btn-neutral mt-4" type="submit">Create Account</button>
-            </form>
+            </Form>
         </div>
     );
 }

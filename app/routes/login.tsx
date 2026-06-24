@@ -1,5 +1,5 @@
 import type { Route } from "./+types/login"
-import { Link, useLoaderData, data, redirect } from "react-router";
+import { Form, Link, data, redirect } from "react-router";
 import { validateCredentials } from "~/db";
 import {
     getSession,
@@ -55,9 +55,9 @@ export default function Login({ loaderData, }: Route.ComponentProps) {
     const { error } = loaderData
 
     return (
-        <div className="flex justify-center">
+        <div className="flex flex-1 justify-center items-center">
             <p> {error} </p>
-            <form method="POST" className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+            <Form method="post" action="/login" className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 justify-center">
                 <fieldset className="fieldset">
                     <label className="label">Email</label>
                     <input name="email" type="email" className="input validator" placeholder="Email" required />
@@ -72,7 +72,7 @@ export default function Login({ loaderData, }: Route.ComponentProps) {
 
                 <button className="btn btn-neutral mt-4" type="submit">Login</button>
                 <Link to="/signup" className="btn btn-ghost mt-1">Create an Account</Link>
-            </form>
+            </Form>
         </div>
     );
 }
